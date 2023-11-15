@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Endpoint 1</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Seleccionar Distrito y Barrio</h1>
+
+        <form action="/showinfo" method="post">
+            <label for="district">Elige un Distrito:</label>
+            <select name="district" id="district" onchange="obtenerBarrios(this.value)">
+                {% for district_name in district_names %}
+                    <option value="{{ district_name }}">{{ district_name }}</option>
+                {% endfor %}
+            </select>
+
+            <br>
+
+            <label for="neighborhood">Elige un Barrio:</label>
+            <select name="neighborhood" id="neighborhood" disabled>
+                <!-- Las opciones se llenarán dinámicamente utilizando JavaScript -->
+            </select>
+            
+            <br>
+
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+    <script>
+        function obtenerBarrios(distrito) {
+            var dropdownBarrios = document.getElementById("neighborhood");
+            dropdownBarrios.innerHTML = ""; // Limpiar opciones existentes
+
+            // Obtener barrios para el distrito seleccionado usando un endpoint de la API
+            fetch(`/api/barrios/${distrito}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.barrioDict.forEach(barrio => {
+                        var option = document.createElement("option");
+                        option.value = barrio;
+                        option.text = barrio;
+                        dropdownBarrios.add(option);
+                    });
+                    dropdownBarrios.disabled = false; // Habilitar el dropdown de barrios
+                });
+        }
+    </script>
+</body>
+</html>
