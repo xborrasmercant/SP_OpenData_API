@@ -10,29 +10,43 @@
 
         <h1>Seleccionar Distrito y Barrio</h1>
 
-        <form action="/showinfo" method="post">
-            <label for="district">Elige un Distrito:</label>
-            <select name="district" id="district" onchange="obtenerBarrios(this.value)">
-                {% for district_name in district_names %}
-                    <option value="{{ district_name }}">{{ district_name }}</option>
+        <form onsubmit="getBarrioInfo(event)" method="post">
+            <label for="distritoLabel">Elija un Distrito:</label>
+            <select name="distritoSelector" id="distritoSelectorTagID" onchange="obtenerBarrios(this.value)">
+                {% for distrito in distritos %}
+                    <option value="{{ distrito }}">{{ distrito }}</option>
                 {% endfor %}
             </select>
 
             <br>
 
-            <label for="neighborhood">Elige un Barrio:</label>
-            <select name="neighborhood" id="neighborhood" disabled>
+            <label for="barrioLabel">Elija un Barrio:</label>
+            <select name="barrioSelector" id="barrioSelectorTagID" disabled>
                 <!-- Las opciones se llenarán dinámicamente utilizando JavaScript -->
             </select>
-            
+    
             <br>
 
             <input type="submit" value="Enviar">
         </form>
+
+        <table id ="infoTable">
+            <thead>
+                <tr>
+                    <th>Población Total</th>
+                    <th>Mujeres Totales</th>
+                    <th>Hombres Totales</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            <!-- Las opciones se llenarán dinámicamente utilizando JavaScript -->
+            </tbody>
+        </table>
+
     </div>
     <script>
         function obtenerBarrios(distrito) {
-            var dropdownBarrios = document.getElementById("neighborhood");
+            var dropdownBarrios = document.getElementById("barrioSelectorTagID");
             dropdownBarrios.innerHTML = ""; // Limpiar opciones existentes
 
             // Obtener barrios para el distrito seleccionado usando un endpoint de la API
@@ -40,13 +54,43 @@
                 .then(response => response.json())
                 .then(data => {
                     data.barrioDict.forEach(barrio => {
-                        var option = document.createElement("option");
-                        option.value = barrio;
-                        option.text = barrio;
-                        dropdownBarrios.add(option);
+                        var barrioOption = document.createElement("option");
+                        barrioOption.value = barrio;
+                        barrioOption.text = barrio;
+                        dropdownBarrios.add(barrioOption);
                     });
                     dropdownBarrios.disabled = false; // Habilitar el dropdown de barrios
                 });
+        }
+
+
+        function getBarrioInfo(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var distrito = document.getElementById('distritoSelectorTagID').value;
+            var barrio = document.getElementById('barrioSelectorTagID').value;
+            var infoTable = document.getElementById('infoTable');
+
+            fetch(`/api/neighborhoodData/${distrito}/${barrio}`)
+                .then(response => response.json())
+                .then(data => {
+                    var tableBody = document.getElementById('tableBody');
+                    tableBody.innerHTML = '';
+
+                    // Assuming data is an object with pobTotal, hTotal, mTotal
+                    var row = `<tr>
+                                <td>${data.pobTotal}</td>
+                                <td>${data.hTotal}</td>
+                                <td>${data.mTotal}</td>
+                            </tr>`;
+                    tableBody.innerHTML = row; // Add new row
+                    infoTable.style.display = "table"
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    // Handle errors, maybe display a message to the user
+                });
+
         }
     </script>
 </body>

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Form, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import requests
@@ -16,22 +16,40 @@ async def showinfo(request: Request):
 
     distritoDict = fetchData()
 
-    nombres_distritos = list(distritoDict.keys())
-    return templates.TemplateResponse("showinfo.html", {"request": request, "district_names": nombres_distritos})
+    distritos = list(distritoDict.keys())
+    return templates.TemplateResponse("showinfo.html", {"request": request, "distritos": distritos})
 
-@app.get("/api/barrios/{nombre_distrito}")
-async def obtener_barrios(nombre_distrito: str):
+@app.get("/api/barrios/{distrito}")
+async def obtener_barrios(distrito: str):
 
-    barrioDict = list(distritoDict.get(nombre_distrito, {}).keys())
+    barrioDict = list(distritoDict.get(distrito, {}).keys())
     return {"barrioDict": barrioDict}
 
 
+@app.post("/submit_form")
+async def handle_form_submission(district: str = Form(...), neighborhood: str = Form(...)):
+
+    pobTotal = distritoDict[district][neighborhood][0]
+    hTotal = distritoDict[district][neighborhood][1]
+    mTotal = distritoDict[district][neighborhood][2]
+
+    return {"district": district, "neighborhood": neighborhood, "pobTotal": pobTotal, "hTotal": hTotal,"mTotal": mTotal}
 
 
+@app.get("/api/neighborhoodData/{distrito}/{barrio}")
+async def barrio_data(distrito: str, barrio: str):
 
 
+    pobTotal = distritoDict[distrito][barrio][0]
+    hTotal = distritoDict[distrito][barrio][1]
+    mTotal = distritoDict[distrito][barrio][2]
 
 
+    return {
+        "pobTotal": pobTotal,
+        "hTotal": hTotal,
+        "mTotal": mTotal
+    }
 
 @app.get("/fetch-data")
 async def fetch_data():
