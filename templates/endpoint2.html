@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Endpoint 1</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Porcentaje de Hombres y Mujeres</h1>
+
+        <form onsubmit="getBarrioPercentages(event)" method="post">
+            <label for="distritoLabel">Elija un Distrito:</label>
+            <select name="distritoSelector" id="distritoSelectorTagID" onchange="getBarrios(this.value)">
+                {% for distrito in distritos %}
+                <option value="{{ distrito }}">{{ distrito }}</option>
+                {% endfor %}
+            </select>
+
+            <br>
+
+            <label for="barrioLabel">Elija un Barrio:</label>
+            <select name="barrioSelector" id="barrioSelectorTagID" disabled>
+                <!-- El interior del dropdown se rellenará automáticamente -->
+            </select>
+
+            <br>
+
+            <input type="submit" value="Enviar">
+        </form>
+
+        <table id="infoTable">
+            <thead>
+                <tr>
+                    <th>Hombres (%)</th>
+                    <th>Mujeres (%)</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- El interior de la tabla se rellenará automáticamente -->
+            </tbody>
+        </table>
+
+
+        <br>
+
+        <button onclick="window.location.href='/'">Volver al Inicio</button>
+
+    </div>
+
+    <script src="/static/scripts.js"></script>
+</body>
+
+</html>

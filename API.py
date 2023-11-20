@@ -11,29 +11,33 @@ distritoDict = {}
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/showinfo")
-async def showinfo(request: Request):
+@app.get("/")
+async def ShowIndex(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/endpoint1")
+async def showEndpoint1(request: Request):
 
     distritoDict = fetchData()
 
     distritos = list(distritoDict.keys())
-    return templates.TemplateResponse("showinfo.html", {"request": request, "distritos": distritos})
+    return templates.TemplateResponse("endpoint1.html", {"request": request, "distritos": distritos})
+
+
+@app.get("/endpoint2")
+async def showEndpoint2(request: Request):
+
+    distritoDict = fetchData()
+
+    distritos = list(distritoDict.keys())
+    return templates.TemplateResponse("endpoint2.html", {"request": request, "distritos": distritos})
+
 
 @app.get("/api/barrios/{distrito}")
 async def obtener_barrios(distrito: str):
 
     barrioDict = list(distritoDict.get(distrito, {}).keys())
     return {"barrioDict": barrioDict}
-
-
-@app.post("/submit_form")
-async def handle_form_submission(district: str = Form(...), neighborhood: str = Form(...)):
-
-    pobTotal = distritoDict[district][neighborhood][0]
-    hTotal = distritoDict[district][neighborhood][1]
-    mTotal = distritoDict[district][neighborhood][2]
-
-    return {"district": district, "neighborhood": neighborhood, "pobTotal": pobTotal, "hTotal": hTotal,"mTotal": mTotal}
 
 
 @app.get("/api/neighborhoodData/{distrito}/{barrio}")
@@ -71,7 +75,7 @@ def extractInfo(features):
         for feature in features:
             attributes = feature.get('attributes', {})
             distrito = attributes.get('Distrito', 'Unknown')
-            barrio = attributes.get('Barrio', 'Unknown')
+            barrio = attributes.get('Barrio', 'Unknown').title()
             pobTotal = attributes.get('Población_Total', 'Unknown')
             MTotal = attributes.get('M_Total', 'Unknown')
             HTotal = attributes.get('H_total', 'Unknown')

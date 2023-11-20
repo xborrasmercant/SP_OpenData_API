@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Optional, for styling -->
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bienvenido al visualizador de barrios de Sevilla</h1>
+        <p>Para esta tarea he usado los datos de los distintos distritos, y sus respectivos barrios, de la ciudad de Sevilla.</p>
+        <p>Dentro de esta página se encuntran dos endpoints que tratan la información:</p>
+        <ul> 
+            <li>Población Total: se muestra el total de Población de un barrio en específico junto a la cantidad e hombres y mujeres.</li> 
+            <li>Porcentajes: se muestra el porcentaje de hombres y mujeres de un barrio en concreto.</li> 
+        </ul>
+        <a href="https://opendata.esri.es/maps/ideSEVILLA::poblaci%C3%B3n-2018-secciones-censales-por-lustros-1">¡Haz click aquí para ir a la API!</a>
+
+
+        <br>
+
+        <p>Seleccione una de las siguientes opciones:</p>
+
+        <!-- Buttons to navigate to other endpoints -->
+        <button onclick="window.location.href='/endpoint1'">Población Total</button>
+        <button onclick="window.location.href='/endpoint2'">Porcentaje Hombres y Mujeres</button>
+
+    </div>
+
+</body>
+</html>

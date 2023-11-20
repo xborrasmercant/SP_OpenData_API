@@ -103,6 +103,31 @@ button:hover {
     text-align: center;
 }
 
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #d6d6d6; /* Light gray border */
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fbfbfb; /* Very light background */
+    color: #5d5d5d; /* Medium gray text */
+    font-family: 'Arial', sans-serif; /* Consistent font */
+    outline: none; /* Removes the default focus outline */
+    transition: border-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+input:hover {
+    border-color: #5a5f63; /* Slightly darker border on hover */
+    background-color: rgb(223, 232, 238); /* Very light background */
+
+}
+
+input:focus {
+    border-color: #3498db; /* Blue border to indicate focus, matching the button color */
+}
+
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
