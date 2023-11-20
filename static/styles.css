@@ -1,0 +1,142 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7; /* A very light gray for a subtle background */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Softer shadow */
+    width: 300px;
+}
+
+h1 {
+    color: #2c3e50; /* A deep blue-gray for the heading */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #d6d6d6; /* Lighter border */
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fbfbfb; /* Very light background for inputs and button */
+    color: #5d5d5d; /* A medium gray for text */
+}
+
+button {
+    background-color: #3498db; /* A less saturated blue for the button */
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9; /* A slightly darker shade of blue for button hover */
+}
+
+/* Style the labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #7f8c8d; /* Soft gray for text */
+}
+
+/* Add some hover effects to inputs */
+select:hover,
+button:hover {
+    border-color: #bdc3c7; /* A slightly darker border on hover */
+}
+
+#infoTable {
+    display: none;
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#infoTable thead th {
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#infoTable tbody td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
+
+#infoTable tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+#infoTable tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+#infoTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#infoTable td:first-child,
+#infoTable th:first-child {
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #d6d6d6; /* Light gray border */
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fbfbfb; /* Very light background */
+    color: #5d5d5d; /* Medium gray text */
+    font-family: 'Arial', sans-serif; /* Consistent font */
+    outline: none; /* Removes the default focus outline */
+    transition: border-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+input:hover {
+    border-color: #5a5f63; /* Slightly darker border on hover */
+    background-color: rgb(223, 232, 238); /* Very light background */
+
+}
+
+input:focus {
+    border-color: #3498db; /* Blue border to indicate focus, matching the button color */
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        height: auto;
+    }
+    .container {
+        width: auto;
+        margin: 10px;
+    }
+}
